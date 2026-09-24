@@ -1,0 +1,23 @@
+class Solution:
+    def check(self, arr, m, days):
+        countDay, i, tempWeight = 1, 0, 0
+        while i < len(arr):
+            tempWeight += arr[i]
+            if tempWeight > m:
+                countDay += 1
+                tempWeight = arr[i]
+            i += 1
+        return countDay
+
+
+    def shipWithinDays(self, weights: List[int], days: int) -> int:
+        l, r = max(weights), sum(weights)
+        while l < r:
+            m = l + (r-l)//2
+            count = self.check(weights, m, days)
+            if count > days:
+                l = m + 1
+            else:
+                r = m
+        return l
+            
